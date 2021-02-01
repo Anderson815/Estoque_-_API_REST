@@ -8,6 +8,13 @@ public class ExceptionResponse {
     private String nome;
     private String mensagem;
 
+    public ExceptionResponse(Date data, int cod, String nome, String mensagem) {
+        this.data = data;
+        this.cod = cod;
+        this.nome = nome;
+        this.mensagem = mensagem;
+    }
+
     public Date getData() {
         return data;
     }
