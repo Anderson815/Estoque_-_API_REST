@@ -1,5 +1,6 @@
 package com.anderson.estoque.model.request;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -11,7 +12,10 @@ public class ProdutoModelRequest {
     @NotBlank(message = "não foi informado a marca do produto")
     private String marca;
     @NotNull(message = "não foi informado o valor do produto")
-    private BigDecimal valor;
+    private BigDecimal preco;
+    @Min(value = 0, message = "A quantidade não pode ser menor que 0")
+    private int quantidade;
+
 
     public String getNome() {
         return nome;
@@ -29,11 +33,19 @@ public class ProdutoModelRequest {
         this.marca = marca;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public BigDecimal getPreco() {
+        return preco;
     }
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
+    public void setPreco(BigDecimal valor) {
+        this.preco = valor;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 }
