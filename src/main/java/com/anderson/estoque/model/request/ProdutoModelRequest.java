@@ -12,6 +12,7 @@ public class ProdutoModelRequest {
     @NotBlank(message = "não foi informado a marca do produto")
     private String marca;
     @NotNull(message = "não foi informado o valor do produto")
+    @Min(value = 0, message = "o preço não pode ser negativo")
     private BigDecimal preco;
     @Min(value = 0, message = "A quantidade não pode ser menor que 0")
     private int quantidade;
