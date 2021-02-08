@@ -27,7 +27,6 @@ public class ProdutoService {
         produtoRepository.save(produtoResource);
 
         return produtoParaResposta(produtoResource);
-
     }
 
     //Métodos auxiliares
