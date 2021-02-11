@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/produto")
@@ -27,4 +29,10 @@ public class ProdutoController {
         if(erroRequest.hasErrors()) throw new RequestConstraintException(erroRequest.getAllErrors().get(0).getDefaultMessage());
         return new ResponseEntity<>(produtoService.criar(produtoRequest), HttpStatus.CREATED);
     }
+
+    @GetMapping
+    public ResponseEntity<List<ProdutoModelResponse>> obterProdutos(){
+        return new ResponseEntity<>(produtoService.obterProdutos(), HttpStatus.OK);
+    }
+
 }

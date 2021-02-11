@@ -7,6 +7,8 @@ import com.anderson.estoque.resource.ProdutoResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -27,6 +29,19 @@ public class ProdutoService {
         produtoRepository.save(produtoResource);
 
         return produtoParaResposta(produtoResource);
+    }
+
+    public List<ProdutoModelResponse> obterProdutos(){
+
+        List<ProdutoModelResponse> listaProdutoResponse = new ArrayList<>();
+        List<ProdutoResource> listaProdutoResource = produtoRepository.findAll();
+
+        for(ProdutoResource produtoResource: listaProdutoResource){
+            ProdutoModelResponse produtoResponse = produtoParaResposta(produtoResource);
+            listaProdutoResponse.add(produtoResponse);
+        }
+
+        return listaProdutoResponse;
     }
 
     //Métodos auxiliares
