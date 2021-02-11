@@ -49,4 +49,12 @@ public class ProdutoModelResponse {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
+
+    @Override
+    public boolean equals(Object objetoComparado){
+        ProdutoModelResponse produtoComparado = (ProdutoModelResponse) objetoComparado;
+
+        if(produtoComparado.getId().equals(this.getId()) && produtoComparado.getNome().equals(this.getNome()) && produtoComparado.getMarca().equals(this.getMarca())) return true;
+        else return false;
+    }
 }
