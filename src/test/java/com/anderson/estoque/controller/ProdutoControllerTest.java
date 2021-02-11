@@ -32,6 +32,7 @@ public class ProdutoControllerTest {
     @MockBean
     private ProdutoService produtoService;
 
+    //Testes do método criar()
     @Test
     public void testCriarComSucesso() throws Exception{
 
@@ -118,6 +119,14 @@ public class ProdutoControllerTest {
         mockMvc.perform(post("/produto").content(body).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.mensagem", Matchers.is("A quantidade não pode ser menor que 0")));
+    }
+
+    //Teste do método obterProdutos()
+    @Test
+    public void testObterProdutosComSucesso() throws Exception{
+
+        mockMvc.perform(get("/produto"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 }
