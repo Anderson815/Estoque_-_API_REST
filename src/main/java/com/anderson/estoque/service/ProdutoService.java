@@ -1,5 +1,6 @@
 package com.anderson.estoque.service;
 
+import com.anderson.estoque.exception.NotFoundException;
 import com.anderson.estoque.model.request.ProdutoModelRequest;
 import com.anderson.estoque.model.response.ProdutoModelResponse;
 import com.anderson.estoque.repository.ProdutoRepository;
@@ -35,6 +36,21 @@ public class ProdutoService {
 
         List<ProdutoModelResponse> listaProdutoResponse = new ArrayList<>();
         List<ProdutoResource> listaProdutoResource = produtoRepository.findAll();
+
+        for(ProdutoResource produtoResource: listaProdutoResource){
+            ProdutoModelResponse produtoResponse = produtoParaResposta(produtoResource);
+            listaProdutoResponse.add(produtoResponse);
+        }
+
+        return listaProdutoResponse;
+    }
+
+    public List<ProdutoModelResponse> obterProdutosPelaMarca(String marca){
+
+        if(!produtoRepository.existsByMarca(marca)) throw new NotFoundException("a marca");
+
+        List<ProdutoModelResponse> listaProdutoResponse = new ArrayList<>();
+        List<ProdutoResource> listaProdutoResource = produtoRepository.findAllByMarca(marca);
 
         for(ProdutoResource produtoResource: listaProdutoResource){
             ProdutoModelResponse produtoResponse = produtoParaResposta(produtoResource);

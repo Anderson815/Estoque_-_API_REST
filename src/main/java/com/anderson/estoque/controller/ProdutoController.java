@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,4 +36,8 @@ public class ProdutoController {
         return new ResponseEntity<>(produtoService.obterProdutos(), HttpStatus.OK);
     }
 
+    @GetMapping(value="/{marca}")
+    public ResponseEntity<List<ProdutoModelResponse>> obterProdutosPelaMarca(@PathVariable String marca){
+        return new ResponseEntity<>(produtoService.obterProdutosPelaMarca(marca), HttpStatus.OK);
+    }
 }
