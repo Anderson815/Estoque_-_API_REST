@@ -18,6 +18,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProdutoServiceTest {
@@ -190,5 +191,62 @@ public class ProdutoServiceTest {
 
         //Teste
         List<ProdutoModelResponse> listaProdutoResponseAtual = produtoService.obterProdutosPelaMarca(marca);
+    }
+    
+    //Teste do método obterProdutoPeloId(...)
+    @Test 
+    public void testObterProdutoPeloIdComSucesso(){
+        
+        //Parâmetro
+        String id = "1234";
+        
+        //Esperado
+        ProdutoModelResponse produtoEsperado = new ProdutoModelResponse();
+        produtoEsperado.setId("1234");
+        produtoEsperado.setNome("PS5");
+        produtoEsperado.setMarca("Sony");
+        produtoEsperado.setPreco(new BigDecimal("4700.50"));
+        produtoEsperado.setQuantidade(25);
+        
+        //Objeto para simulação
+        ProdutoResource produtoResource = produtoResource();
+
+        //Simulação
+        when(produtoRepository.findById(id))
+                .thenReturn(Optional.of(produtoResource));
+
+        //Teste
+        ProdutoModelResponse produtoAtual = produtoService.obterProdutoPeloId(id);
+        assertEquals(produtoEsperado, produtoAtual);
+    }
+
+    @Test
+    public void testObterProdutoPeloIdFalhaIdInexistente(){
+
+        //Parâmetro
+        String id = "1234";
+
+        //Esperado
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage("Não foi possível encontrar o produto: " + id);
+
+        //Simulação
+        when(produtoRepository.findById(id))
+                .thenReturn(Optional.ofNullable(null));
+
+        //Teste
+        ProdutoModelResponse produtoResponse = produtoService.obterProdutoPeloId(id);
+    }
+
+    //Auxiliares
+    private ProdutoResource produtoResource(){
+        ProdutoResource produtoResource = new ProdutoResource();
+        produtoResource.setId("1234");
+        produtoResource.setNome("PS5");
+        produtoResource.setMarca("Sony");
+        produtoResource.setPreco(new BigDecimal("4700.50"));
+        produtoResource.setQuantidade(25);
+
+        return produtoResource;
     }
 }
