@@ -36,13 +36,13 @@ public class ProdutoController {
         return new ResponseEntity<>(produtoService.obterProdutos(), HttpStatus.OK);
     }
 
-    @GetMapping(value="/{marca}")
+    @GetMapping(value="marca/{marca}")
     public ResponseEntity<List<ProdutoModelResponse>> obterProdutosPelaMarca(@PathVariable String marca){
         return new ResponseEntity<>(produtoService.obterProdutosPelaMarca(marca), HttpStatus.OK);
     }
 
     @GetMapping(value="/{id_produto}")
-    public ResponseEntity<ProdutoModelResponse> obterProdutoPeloId(@PathVariable String id){
+    public ResponseEntity<ProdutoModelResponse> obterProdutoPeloId(@PathVariable(value="id_produto") String id){
         return new ResponseEntity<>(produtoService.obterProdutoPeloId(id), HttpStatus.OK);
     }
 }

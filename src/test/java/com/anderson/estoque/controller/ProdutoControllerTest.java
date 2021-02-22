@@ -3,10 +3,13 @@ package com.anderson.estoque.controller;
 import com.anderson.estoque.exception.NotFoundException;
 import com.anderson.estoque.model.request.ProdutoModelRequest;
 import com.anderson.estoque.model.response.ProdutoModelResponse;
+import com.anderson.estoque.resource.ProdutoResource;
 import com.anderson.estoque.service.ProdutoService;
 import com.sun.xml.internal.fastinfoset.Encoder;
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +40,19 @@ public class ProdutoControllerTest {
     @MockBean
     private ProdutoService produtoService;
 
+    private ProdutoModelResponse produtoResponse;
+    
+    @Before
+    public void produtoResponse(){
+        produtoResponse = new ProdutoModelResponse();
+
+        produtoResponse.setId("1234");
+        produtoResponse.setNome("PS5");
+        produtoResponse.setMarca("Sony");
+        produtoResponse.setPreco(new BigDecimal("4700.50"));
+        produtoResponse.setQuantidade(25);
+    }
+    
     //Testes do método criar()
     @Test
     public void testCriarComSucesso() throws Exception{
@@ -166,7 +182,7 @@ public class ProdutoControllerTest {
                 .thenReturn(listaProdutoResponseEsperado);
         
         //Teste
-        mockMvc.perform(get("/produto/{marca}", marca).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/produto/marca/{marca}", marca).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.*", Matchers.hasSize(2)));
     }
@@ -182,9 +198,39 @@ public class ProdutoControllerTest {
                 .thenThrow(new NotFoundException("a marca:" + marca));
 
         //Teste
-        mockMvc.perform(get("/produto/{marca}", marca).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/produto/marca/{marca}", marca).contentType(MediaType.APPLICATION_JSON))
               .andExpect(MockMvcResultMatchers.status().isNotFound())
               .andExpect(MockMvcResultMatchers.jsonPath("$.mensagem", Matchers.is("Não foi possível encontrar a marca:" + marca)));
     }
 
+    //Testes do método obterProdutoPeloId(...)
+    @Test
+    public void testObterProdutoPeloIdComSucesso() throws Exception{
+        //Parâmetro
+        String id = "1234";
+
+        //Simulação
+        when(produtoService.obterProdutoPeloId(id))
+                .thenReturn(produtoResponse);
+
+        //Teste
+        mockMvc.perform(get("/produto/{id_produto}", id).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testObterProdutoPeloIdFalhaIdInexistente() throws Exception{
+
+        //Parâmetro
+        String id = "1234";
+
+        //Simulação
+        when(produtoService.obterProdutoPeloId(id))
+                .thenThrow(new NotFoundException("o produto: " + id));
+
+        //Teste
+        mockMvc.perform(get("/produto/{id_produto}", id).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.mensagem", Matchers.is("Não foi possível encontrar o produto: " + id)));
+    }
 }
