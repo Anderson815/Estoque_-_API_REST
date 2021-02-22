@@ -40,4 +40,9 @@ public class ProdutoController {
     public ResponseEntity<List<ProdutoModelResponse>> obterProdutosPelaMarca(@PathVariable String marca){
         return new ResponseEntity<>(produtoService.obterProdutosPelaMarca(marca), HttpStatus.OK);
     }
+
+    @GetMapping(value="/{id_produto}")
+    public ResponseEntity<ProdutoModelResponse> obterProdutoPeloId(@PathVariable String id){
+        return new ResponseEntity<>(produtoService.obterProdutoPeloId(id), HttpStatus.OK);
+    }
 }

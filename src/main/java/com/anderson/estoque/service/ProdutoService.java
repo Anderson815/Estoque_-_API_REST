@@ -8,6 +8,7 @@ import com.anderson.estoque.resource.ProdutoResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class ProdutoService {
         produtoResource.setId(UUID.randomUUID().toString());
         produtoResource.setNome(produtoRequest.getNome());
         produtoResource.setMarca(produtoRequest.getMarca());
-        produtoResource.setPreco(produtoRequest.getPreco());
+        produtoResource.setPreco(produtoRequest.getPreco().setScale(2, RoundingMode.DOWN));
         produtoResource.setQuantidade(produtoRequest.getQuantidade());
 
         produtoRepository.save(produtoResource);
@@ -60,7 +61,16 @@ public class ProdutoService {
         return listaProdutoResponse;
     }
 
+    public ProdutoModelResponse obterProdutoPeloId(String id){
+        ProdutoResource produtoResource = obterProduto(id);
+        return produtoParaResposta(produtoResource);
+    }
+
     //Métodos auxiliares
+
+    private ProdutoResource obterProduto(String id){
+        return produtoRepository.findById(id).orElseThrow(() -> new NotFoundException("o produto: " + id));
+    }
 
     private ProdutoModelResponse produtoParaResposta(ProdutoResource produtoResource){
 
