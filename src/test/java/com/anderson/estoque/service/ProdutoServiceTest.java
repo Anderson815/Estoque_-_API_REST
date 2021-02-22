@@ -157,13 +157,6 @@ public class ProdutoServiceTest {
         produtoResponse1.setPreco(new BigDecimal("1550.75"));
         produtoResponse1.setQuantidade(89);
 
-        ProdutoModelResponse produtoResponse2 = new ProdutoModelResponse();
-        produtoResponse2.setId("fghij");
-        produtoResponse2.setNome("iPhone 12");
-        produtoResponse2.setMarca("Apple");
-        produtoResponse2.setPreco(new BigDecimal("7899.99"));
-        produtoResponse2.setQuantidade(150);
-
         ProdutoModelResponse produtoResponse3 = new ProdutoModelResponse();
         produtoResponse3.setId("klmno");
         produtoResponse3.setNome("PlayStation 5");

@@ -47,7 +47,7 @@ public class ProdutoService {
 
     public List<ProdutoModelResponse> obterProdutosPelaMarca(String marca){
 
-        if(!produtoRepository.existsByMarca(marca)) throw new NotFoundException("a marca");
+        if(!produtoRepository.existsByMarca(marca)) throw new NotFoundException("a marca: " + marca);
 
         List<ProdutoModelResponse> listaProdutoResponse = new ArrayList<>();
         List<ProdutoResource> listaProdutoResource = produtoRepository.findAllByMarca(marca);
