@@ -27,4 +27,11 @@ public class RestExceptionHandler {
         ExceptionResponse respostaErro = new ExceptionResponse(new Date(), HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
         return new ResponseEntity<>(respostaErro, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(InvalidValueException.class)
+    public ResponseEntity<ExceptionResponse> responseInvalidValueException(InvalidValueException erro){
+        ExceptionResponse respostaErro = new ExceptionResponse(new Date(), HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
+        return new ResponseEntity<>(respostaErro, HttpStatus.BAD_REQUEST);
+    }
+
 }
