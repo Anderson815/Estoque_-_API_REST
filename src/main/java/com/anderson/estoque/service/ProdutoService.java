@@ -1,6 +1,7 @@
 package com.anderson.estoque.service;
 
 import com.anderson.estoque.exception.ChangeException;
+import com.anderson.estoque.exception.InvalidValueException;
 import com.anderson.estoque.exception.NotFoundException;
 import com.anderson.estoque.model.request.ProdutoModelRequest;
 import com.anderson.estoque.model.response.ProdutoModelResponse;
@@ -68,11 +69,23 @@ public class ProdutoService {
         return produtoParaResposta(produtoResource);
     }
 
-//    public ProdutoModelResponse alterarProduto(String id, BigDecimal valor, int quantidade){
-//        ProdutoResource produtoResource = obterProduto(id);
-//        if(valor.compareTo(new BigDecimal("0.00")) == 0 && quantidade == 0) throw new ChangeException();
-//
-//    }
+    public ProdutoModelResponse alterarProduto(String id, BigDecimal valor, int quantidade){
+        ProdutoResource produtoResource = obterProduto(id);
+
+        if(valor.compareTo(new BigDecimal("0")) == 0 && quantidade == 0) throw new ChangeException();
+        else if(valor.compareTo(new BigDecimal("0")) < 0) throw new InvalidValueException("preço negativo");
+        else if(quantidade < 0) throw new InvalidValueException("quantidade negativo");
+        else{
+            quantidade = quantidade==0? produtoResource.getQuantidade(): quantidade;
+            valor = valor.compareTo(new BigDecimal("0")) == 0? produtoResource.getPreco(): valor;
+        }
+
+        produtoResource.setQuantidade(quantidade);
+        produtoResource.setPreco(valor);
+        produtoRepository.save(produtoResource);
+
+        return produtoParaResposta(produtoResource);
+    }
     //Métodos auxiliares
 
     private ProdutoResource obterProduto(String id){
