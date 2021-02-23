@@ -5,6 +5,7 @@ import com.anderson.estoque.model.request.ProdutoModelRequest;
 import com.anderson.estoque.model.response.ProdutoModelResponse;
 import com.anderson.estoque.repository.ProdutoRepository;
 import com.anderson.estoque.resource.ProdutoResource;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -31,6 +32,18 @@ public class ProdutoServiceTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private ProdutoResource produtoResource;
+
+    @Before
+    public void produtoResource(){
+        produtoResource = new ProdutoResource();
+        produtoResource.setId("1234");
+        produtoResource.setNome("PS5");
+        produtoResource.setMarca("Sony");
+        produtoResource.setPreco(new BigDecimal("4700.50"));
+        produtoResource.setQuantidade(25);
+    }
 
     //Teste do método criar()
     @Test
@@ -207,9 +220,6 @@ public class ProdutoServiceTest {
         produtoEsperado.setMarca("Sony");
         produtoEsperado.setPreco(new BigDecimal("4700.50"));
         produtoEsperado.setQuantidade(25);
-        
-        //Objeto para simulação
-        ProdutoResource produtoResource = produtoResource();
 
         //Simulação
         when(produtoRepository.findById(id))
@@ -238,15 +248,4 @@ public class ProdutoServiceTest {
         ProdutoModelResponse produtoResponse = produtoService.obterProdutoPeloId(id);
     }
 
-    //Auxiliares
-    private ProdutoResource produtoResource(){
-        ProdutoResource produtoResource = new ProdutoResource();
-        produtoResource.setId("1234");
-        produtoResource.setNome("PS5");
-        produtoResource.setMarca("Sony");
-        produtoResource.setPreco(new BigDecimal("4700.50"));
-        produtoResource.setQuantidade(25);
-
-        return produtoResource;
-    }
 }
