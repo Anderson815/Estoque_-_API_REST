@@ -21,4 +21,10 @@ public class RestExceptionHandler {
         ExceptionResponse respostaErro = new ExceptionResponse(new Date(), HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name(), erro.getMessage());
         return new ResponseEntity<>(respostaErro, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ChangeException.class)
+    public ResponseEntity<ExceptionResponse> responseChangeException(ChangeException erro){
+        ExceptionResponse respostaErro = new ExceptionResponse(new Date(), HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
+        return new ResponseEntity<>(respostaErro, HttpStatus.BAD_REQUEST);
+    }
 }
