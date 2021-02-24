@@ -77,7 +77,7 @@ public class ProdutoService {
         else if(quantidade < 0) throw new InvalidValueException("quantidade negativo");
         else{
             quantidade = quantidade==0? produtoResource.getQuantidade(): quantidade;
-            valor = valor.compareTo(new BigDecimal("0")) == 0? produtoResource.getPreco(): valor;
+            valor = valor.compareTo(new BigDecimal("0")) == 0? produtoResource.getPreco(): valor.setScale(2, RoundingMode.DOWN);
         }
 
         produtoResource.setQuantidade(quantidade);

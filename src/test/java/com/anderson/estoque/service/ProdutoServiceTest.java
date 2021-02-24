@@ -1,5 +1,7 @@
 package com.anderson.estoque.service;
 
+import com.anderson.estoque.exception.ChangeException;
+import com.anderson.estoque.exception.InvalidValueException;
 import com.anderson.estoque.exception.NotFoundException;
 import com.anderson.estoque.model.request.ProdutoModelRequest;
 import com.anderson.estoque.model.response.ProdutoModelResponse;
@@ -206,7 +208,7 @@ public class ProdutoServiceTest {
         List<ProdutoModelResponse> listaProdutoResponseAtual = produtoService.obterProdutosPelaMarca(marca);
     }
     
-    //Teste do método obterProdutoPeloId(...)
+    //Testes do método obterProdutoPeloId(...)
     @Test 
     public void testObterProdutoPeloIdComSucesso(){
         
@@ -247,5 +249,155 @@ public class ProdutoServiceTest {
         //Teste
         ProdutoModelResponse produtoResponse = produtoService.obterProdutoPeloId(id);
     }
+    
+    //Testes do método alterarProduto(...)
+    @Test
+    public void testAlterarProdutoComSucesso(){
+        //Parâmetros
+        String id = "1234";
+        BigDecimal valor = new BigDecimal("1500.00");
+        int quantidade = 60;
+        
+        //Esperado
+        ProdutoModelResponse produtoResponseEsperado = new ProdutoModelResponse();
+        produtoResponseEsperado.setId("1234");
+        produtoResponseEsperado.setNome("PS5");
+        produtoResponseEsperado.setMarca("Sony");
+        produtoResponseEsperado.setPreco(valor);
+        produtoResponseEsperado.setQuantidade(quantidade);
 
+        //Simulação
+        when(produtoRepository.findById(id))
+                .thenReturn(Optional.of(produtoResource));
+
+        //Teste
+        ProdutoModelResponse produtoResponseAtual = produtoService.alterarProduto(id, valor, quantidade);
+        assertEquals(produtoResponseEsperado, produtoResponseAtual);
+        assertEquals(produtoResponseEsperado.getPreco(), produtoResponseAtual.getPreco());
+        assertEquals(produtoResponseEsperado.getQuantidade(), produtoResponseAtual.getQuantidade());
+    }
+
+    @Test
+    public void testAlterarProdutoComSucessoSemPreco(){
+        //Parâmetros
+        String id = "1234";
+        BigDecimal valor = new BigDecimal("0.00");
+        int quantidade = 60;
+
+        //Esperado
+        ProdutoModelResponse produtoResponseEsperado = new ProdutoModelResponse();
+        produtoResponseEsperado.setId("1234");
+        produtoResponseEsperado.setNome("PS5");
+        produtoResponseEsperado.setMarca("Sony");
+        produtoResponseEsperado.setPreco(produtoResource.getPreco());
+        produtoResponseEsperado.setQuantidade(quantidade);
+
+        //Simulação
+        when(produtoRepository.findById(id))
+                .thenReturn(Optional.of(produtoResource));
+
+        //Teste
+        ProdutoModelResponse produtoResponseAtual = produtoService.alterarProduto(id, valor, quantidade);
+        assertEquals(produtoResponseEsperado, produtoResponseAtual);
+        assertEquals(produtoResponseEsperado.getPreco(), produtoResponseAtual.getPreco());
+        assertEquals(produtoResponseEsperado.getQuantidade(), produtoResponseAtual.getQuantidade());
+    }
+
+    @Test
+    public void testAlterarProdutoComSucessoSemQuantidade(){
+        //Parâmetros
+        String id = "1234";
+        BigDecimal valor = new BigDecimal("1500.00");
+        int quantidade = 0;
+
+        //Esperado
+        ProdutoModelResponse produtoResponseEsperado = new ProdutoModelResponse();
+        produtoResponseEsperado.setId("1234");
+        produtoResponseEsperado.setNome("PS5");
+        produtoResponseEsperado.setMarca("Sony");
+        produtoResponseEsperado.setPreco(valor);
+        produtoResponseEsperado.setQuantidade(produtoResource.getQuantidade());
+
+        //Simulação
+        when(produtoRepository.findById(id))
+                .thenReturn(Optional.of(produtoResource));
+
+        //Teste
+        ProdutoModelResponse produtoResponseAtual = produtoService.alterarProduto(id, valor, quantidade);
+        assertEquals(produtoResponseEsperado, produtoResponseAtual);
+        assertEquals(produtoResponseEsperado.getPreco(), produtoResponseAtual.getPreco());
+        assertEquals(produtoResponseEsperado.getQuantidade(), produtoResponseAtual.getQuantidade());
+    }
+
+    @Test
+    public void testAlterarProdutoFalhaIdInexistente(){
+        //Parâmetros
+        String id = "4321";
+        BigDecimal valor = new BigDecimal("1500.00");
+        int quantidade = 60;
+
+        //Esperado
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage("Não foi possível encontrar o produto: 4321");
+
+        //Simulação
+        when(produtoRepository.findById(id))
+                .thenReturn(Optional.ofNullable(null));
+
+        //Teste
+        ProdutoModelResponse produtoResponse = produtoService.alterarProduto(id, valor, quantidade);
+    }
+
+    @Test(expected=ChangeException.class)
+    public void testAlterarProdutoFalhaNaoHaMundanca(){
+        //Parâmetros
+        String id = "1234";
+        BigDecimal valor = new BigDecimal("0.00");
+        int quantidade = 0;
+
+        //Simulação
+        when(produtoRepository.findById(id))
+                .thenReturn(Optional.of(produtoResource));
+
+        //Teste
+        ProdutoModelResponse produtoResponse = produtoService.alterarProduto(id, valor, quantidade);
+    }
+
+    @Test
+    public void testAlterarProdutoFalhaPrecoNegativo(){
+        //Parâmetros
+        String id = "4321";
+        BigDecimal valor = new BigDecimal("-0.01");
+        int quantidade = 60;
+
+        //Esperado
+        thrown.expect(InvalidValueException.class);
+        thrown.expectMessage("Informação inválida: preço negativo");
+
+        //Simulação
+        when(produtoRepository.findById(id))
+                .thenReturn(Optional.of(produtoResource));
+
+        //Teste
+        ProdutoModelResponse produtoResponse = produtoService.alterarProduto(id, valor, quantidade);
+    }
+
+    @Test
+    public void testAlterarProdutoFalhaQuantidadeNegativo(){
+        //Parâmetros
+        String id = "4321";
+        BigDecimal valor = new BigDecimal("1500.00");
+        int quantidade = -1;
+
+        //Esperado
+        thrown.expect(InvalidValueException.class);
+        thrown.expectMessage("Informação inválida: quantidade negativo");
+
+        //Simulação
+        when(produtoRepository.findById(id))
+                .thenReturn(Optional.of(produtoResource));
+
+        //Teste
+        ProdutoModelResponse produtoResponse = produtoService.alterarProduto(id, valor, quantidade);
+    }
 }
