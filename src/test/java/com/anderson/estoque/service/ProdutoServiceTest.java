@@ -307,7 +307,7 @@ public class ProdutoServiceTest {
     public void testAlterarProdutoComSucessoSemQuantidade(){
         //Parâmetros
         String id = "1234";
-        BigDecimal valor = new BigDecimal("1500.00");
+        BigDecimal valor = new BigDecimal("1500.009");
         int quantidade = 0;
 
         //Esperado
@@ -315,7 +315,7 @@ public class ProdutoServiceTest {
         produtoResponseEsperado.setId("1234");
         produtoResponseEsperado.setNome("PS5");
         produtoResponseEsperado.setMarca("Sony");
-        produtoResponseEsperado.setPreco(valor);
+        produtoResponseEsperado.setPreco(new BigDecimal("1500.00"));
         produtoResponseEsperado.setQuantidade(produtoResource.getQuantidade());
 
         //Simulação
