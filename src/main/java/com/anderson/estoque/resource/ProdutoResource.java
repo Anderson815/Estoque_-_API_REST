@@ -18,7 +18,7 @@ public class ProdutoResource {
     private String marca;
     @Column(precision = 6, scale = 2, nullable = false)
     private BigDecimal preco;
-    @Column(columnDefinition = "int(3)", nullable = false)
+    @Column(nullable = false)
     private int quantidade;
 
     public String getId() {
