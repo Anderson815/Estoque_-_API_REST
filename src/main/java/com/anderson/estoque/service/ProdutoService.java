@@ -95,8 +95,8 @@ public class ProdutoService {
 
         produtoRepository.delete(produtoResource);
     }
-    //Métodos auxiliares
 
+    //Métodos auxiliares
     private ProdutoResource obterProduto(String id){
         return produtoRepository.findById(id).orElseThrow(() -> new NotFoundException("o produto: " + id));
     }

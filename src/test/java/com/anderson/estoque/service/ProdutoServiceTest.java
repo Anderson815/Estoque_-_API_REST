@@ -1,6 +1,7 @@
 package com.anderson.estoque.service;
 
 import com.anderson.estoque.exception.ChangeException;
+import com.anderson.estoque.exception.DeleteException;
 import com.anderson.estoque.exception.InvalidValueException;
 import com.anderson.estoque.exception.NotFoundException;
 import com.anderson.estoque.model.request.ProdutoModelRequest;
@@ -15,6 +16,8 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -399,5 +402,52 @@ public class ProdutoServiceTest {
 
         //Teste
         ProdutoModelResponse produtoResponse = produtoService.alterarProduto(id, valor, quantidade);
+    }
+
+    //Testes do método deletarProduto(...)
+    @Test
+    public void testDeletarProdutoComSucesso(){
+        //Parâmetros
+        String id = "1234";
+
+        //Preparação
+        produtoResource.setQuantidade(0);
+
+        //Simulação
+        when(produtoRepository.findById(id))
+                .thenReturn(Optional.of(produtoResource));
+
+        //Teste
+        produtoService.deletarProduto(id);
+        verify(produtoRepository).delete(produtoResource); //verifica se esse método do repository foi chamado
+    }
+
+    @Test
+    public void testDeletarProdutoFalhaIdInexistente(){
+        //Parâmetros
+        String id = "4321";
+
+        //Esperado
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage("Não foi possível encontrar o produto: 4321");
+        //Simulação
+        when(produtoRepository.findById(id))
+                .thenReturn(Optional.ofNullable(null));
+
+        //Teste
+        produtoService.deletarProduto(id);
+    }
+
+    @Test(expected=DeleteException.class)
+    public void testDeletarProdutoFalhaQuantidadeMaiorQueZero(){
+        //Parâmetros
+        String id = "1234";
+
+        //Simulação
+        when(produtoRepository.findById(id))
+                .thenReturn(Optional.of(produtoResource));
+
+        //Teste
+        produtoService.deletarProduto(id);
     }
 }
