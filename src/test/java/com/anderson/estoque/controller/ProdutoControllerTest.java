@@ -16,7 +16,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -328,5 +331,44 @@ public class ProdutoControllerTest {
         mockMvc.perform(put("/produto/{id_produto}", id).queryParam("valor", valor.toString()).queryParam("quantidade", Integer.toString(quantidade)).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.mensagem", Matchers.is("Informação inválida: quantidade negativo")));
+    }
+
+    //Testes do método deletarProduto(...)
+    @Test
+    public void testDeletarProdutoComSucesso() throws Exception{
+        //Parâmetros
+        String id = "1234";
+
+        //Testes
+        mockMvc.perform(delete("/produto/{id_produto}", id).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    public void testDeletarProdutoFalhaIdInexistente() throws Exception{
+        //Parâmetros
+        String id = "4321";
+
+        //Simulação
+        Mockito.doThrow(new NotFoundException("o produto: 4321")).when(produtoService).deletarProduto(id);
+
+        //Testes
+        mockMvc.perform(delete("/produto/{id_produto}", id).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.mensagem", Matchers.is("Não foi possível encontrar o produto: 4321")));
+    }
+
+    @Test
+    public void testDeletarProdutoFalhaQuantidadeMaiorQueZero() throws Exception{
+        //Parâmetros
+        String id = "1234";
+
+        //Simulação
+        Mockito.doThrow(new ChangeException()).when(produtoService).deletarProduto(id);
+
+        //Testes
+        mockMvc.perform(delete("/produto/{id_produto}", id).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.mensagem", Matchers.is("Nenhuma mudança foi feita: não foi informado o valor nem a quantidade")));
     }
 }
