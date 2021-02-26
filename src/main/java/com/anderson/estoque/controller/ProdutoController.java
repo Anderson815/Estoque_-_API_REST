@@ -46,4 +46,10 @@ public class ProdutoController {
     public ResponseEntity<ProdutoModelResponse> alterarProduto(@PathVariable(value="id_produto") String id, @RequestParam(value="valor", required=false, defaultValue="0.00") BigDecimal valor, @RequestParam(value="quantidade", required=false, defaultValue="0") int quantidade){
         return new ResponseEntity<>(produtoService.alterarProduto(id, valor, quantidade), HttpStatus.OK);
     }
+
+    @DeleteMapping(value="/{id_produto}")
+    public ResponseEntity deletarProduto(@PathVariable(value="id_produto") String id){
+        produtoService.deletarProduto(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }

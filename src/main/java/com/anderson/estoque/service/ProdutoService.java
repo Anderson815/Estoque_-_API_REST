@@ -1,6 +1,7 @@
 package com.anderson.estoque.service;
 
 import com.anderson.estoque.exception.ChangeException;
+import com.anderson.estoque.exception.DeleteException;
 import com.anderson.estoque.exception.InvalidValueException;
 import com.anderson.estoque.exception.NotFoundException;
 import com.anderson.estoque.model.request.ProdutoModelRequest;
@@ -85,6 +86,14 @@ public class ProdutoService {
         produtoRepository.save(produtoResource);
 
         return produtoParaResposta(produtoResource);
+    }
+
+    public void deletarProduto(String id){
+        ProdutoResource produtoResource = obterProduto(id);
+
+        if(produtoResource.getQuantidade() > 0) throw new DeleteException();
+
+        produtoRepository.delete(produtoResource);
     }
     //Métodos auxiliares
 
