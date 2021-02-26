@@ -1,5 +1,6 @@
 package com.anderson.estoque.exception;
 
+import org.hibernate.sql.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,6 +31,12 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(InvalidValueException.class)
     public ResponseEntity<ExceptionResponse> responseInvalidValueException(InvalidValueException erro){
+        ExceptionResponse respostaErro = new ExceptionResponse(new Date(), HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
+        return new ResponseEntity<>(respostaErro, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DeleteException.class)
+    public ResponseEntity<ExceptionResponse> responseDeleteException(DeleteException erro){
         ExceptionResponse respostaErro = new ExceptionResponse(new Date(), HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
         return new ResponseEntity<>(respostaErro, HttpStatus.BAD_REQUEST);
     }
