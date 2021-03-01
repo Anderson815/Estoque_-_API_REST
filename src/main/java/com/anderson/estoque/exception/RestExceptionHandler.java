@@ -13,31 +13,31 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(RequestConstraintException.class)
     public ResponseEntity<ExceptionResponse> responseRequestConstraintException(RequestConstraintException erro){
-        ExceptionResponse respostaErro = new ExceptionResponse(new Date(), HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
+        ExceptionResponse respostaErro = new ExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
         return new ResponseEntity<>(respostaErro, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ExceptionResponse> responseNotFoundException(NotFoundException erro){
-        ExceptionResponse respostaErro = new ExceptionResponse(new Date(), HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name(), erro.getMessage());
+        ExceptionResponse respostaErro = new ExceptionResponse(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name(), erro.getMessage());
         return new ResponseEntity<>(respostaErro, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ChangeException.class)
     public ResponseEntity<ExceptionResponse> responseChangeException(ChangeException erro){
-        ExceptionResponse respostaErro = new ExceptionResponse(new Date(), HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
+        ExceptionResponse respostaErro = new ExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
         return new ResponseEntity<>(respostaErro, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidValueException.class)
     public ResponseEntity<ExceptionResponse> responseInvalidValueException(InvalidValueException erro){
-        ExceptionResponse respostaErro = new ExceptionResponse(new Date(), HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
+        ExceptionResponse respostaErro = new ExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
         return new ResponseEntity<>(respostaErro, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(DeleteException.class)
     public ResponseEntity<ExceptionResponse> responseDeleteException(DeleteException erro){
-        ExceptionResponse respostaErro = new ExceptionResponse(new Date(), HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
+        ExceptionResponse respostaErro = new ExceptionResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), erro.getMessage());
         return new ResponseEntity<>(respostaErro, HttpStatus.BAD_REQUEST);
     }
 

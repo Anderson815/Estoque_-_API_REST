@@ -1,25 +1,30 @@
 package com.anderson.estoque.exception;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ExceptionResponse {
-    private Date data;
+    private String data;
     private int cod;
     private String nome;
     private String mensagem;
 
-    public ExceptionResponse(Date data, int cod, String nome, String mensagem) {
-        this.data = data;
+    public ExceptionResponse(int cod, String nome, String mensagem) {
+
+        Date date = new Date();
+        SimpleDateFormat formatacao_data = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+        this.data = formatacao_data.format(date);
         this.cod = cod;
         this.nome = nome;
         this.mensagem = mensagem;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
