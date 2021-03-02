@@ -284,7 +284,7 @@ public class ProdutoServiceTest {
     public void testAlterarProdutoComSucessoSemPreco(){
         //Parâmetros
         String id = "1234";
-        BigDecimal valor = new BigDecimal("0.00");
+        BigDecimal valor = null;
         int quantidade = 60;
 
         //Esperado
@@ -311,7 +311,7 @@ public class ProdutoServiceTest {
         //Parâmetros
         String id = "1234";
         BigDecimal valor = new BigDecimal("1500.009");
-        int quantidade = 0;
+        Integer quantidade = null;
 
         //Esperado
         ProdutoModelResponse produtoResponseEsperado = new ProdutoModelResponse();
@@ -355,8 +355,8 @@ public class ProdutoServiceTest {
     public void testAlterarProdutoFalhaNaoHaMundanca(){
         //Parâmetros
         String id = "1234";
-        BigDecimal valor = new BigDecimal("0.00");
-        int quantidade = 0;
+        BigDecimal valor = null;
+        Integer quantidade = null;
 
         //Simulação
         when(produtoRepository.findById(id))
