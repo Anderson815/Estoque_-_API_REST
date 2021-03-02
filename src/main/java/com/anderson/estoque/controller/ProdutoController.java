@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/produto")
@@ -43,7 +44,7 @@ public class ProdutoController {
     }
 
     @PutMapping(value="/{id_produto}")
-    public ResponseEntity<ProdutoModelResponse> alterarProduto(@PathVariable(value="id_produto") String id, @RequestParam(value="valor", required=false, defaultValue="0.00") BigDecimal valor, @RequestParam(value="quantidade", required=false, defaultValue="0") int quantidade){
+    public ResponseEntity<ProdutoModelResponse> alterarProduto(@PathVariable(value="id_produto") String id, @RequestParam(value="valor", required=false, defaultValue="") BigDecimal valor, @RequestParam(value="quantidade", required=false, defaultValue="") Integer quantidade){
         return new ResponseEntity<>(produtoService.alterarProduto(id, valor, quantidade), HttpStatus.OK);
     }
 

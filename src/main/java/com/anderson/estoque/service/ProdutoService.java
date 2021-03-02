@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -70,18 +71,23 @@ public class ProdutoService {
         return produtoParaResposta(produtoResource);
     }
 
-    public ProdutoModelResponse alterarProduto(String id, BigDecimal valor, int quantidade){
+    public ProdutoModelResponse alterarProduto(String id, BigDecimal valor, Integer quantidade){
         ProdutoResource produtoResource = obterProduto(id);
 
-        if(valor.compareTo(new BigDecimal("0")) == 0 && quantidade == 0) throw new ChangeException();
-        else if(valor.compareTo(new BigDecimal("0")) < 0) throw new InvalidValueException("preço negativo");
-        else if(quantidade < 0) throw new InvalidValueException("quantidade negativo");
-        else{
-            quantidade = quantidade==0? produtoResource.getQuantidade(): quantidade;
-            valor = valor.compareTo(new BigDecimal("0")) == 0? produtoResource.getPreco(): valor.setScale(2, RoundingMode.DOWN);
+        if(valor == null && quantidade == null) throw new ChangeException();
+        else {
+            if (valor != null) {
+                if (valor.compareTo(new BigDecimal("0")) < 0) throw new InvalidValueException("preço negativo");
+            }
+            if (quantidade != null) {
+                if (quantidade.intValue() < 0) throw new InvalidValueException("quantidade negativo");
+            }
         }
 
-        produtoResource.setQuantidade(quantidade);
+        valor = valor != null ? valor.setScale(2, RoundingMode.DOWN) : produtoResource.getPreco();
+        quantidade = quantidade != null ? quantidade : Integer.valueOf(produtoResource.getQuantidade());
+
+        produtoResource.setQuantidade(quantidade.intValue());
         produtoResource.setPreco(valor);
         produtoRepository.save(produtoResource);
 
