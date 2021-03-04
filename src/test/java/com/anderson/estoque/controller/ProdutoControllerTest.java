@@ -3,20 +3,13 @@ package com.anderson.estoque.controller;
 import com.anderson.estoque.exception.ChangeException;
 import com.anderson.estoque.exception.InvalidValueException;
 import com.anderson.estoque.exception.NotFoundException;
-import com.anderson.estoque.model.request.ProdutoModelRequest;
 import com.anderson.estoque.model.response.ProdutoModelResponse;
-import com.anderson.estoque.resource.ProdutoResource;
 import com.anderson.estoque.service.ProdutoService;
-import com.sun.xml.internal.fastinfoset.Encoder;
 import org.hamcrest.Matchers;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.mockito.Mockito;
@@ -24,18 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.regex.Matcher;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
