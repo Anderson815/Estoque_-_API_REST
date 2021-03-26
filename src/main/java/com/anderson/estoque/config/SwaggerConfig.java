@@ -34,8 +34,8 @@ public class SwaggerConfig {
                 .title("Estoque API REST")
                 .description("com essa api você poderá realizar operações básicas de um estoque")
                 .version("1.0")
-                .license("Apache License Version 2.0")
-                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0")
+                .license("MIT License")
+                .licenseUrl("https://github.com/Anderson815/Estoque_-_API_REST/blob/master/LICENSE")
                 .contact(contato)
                 .build();
     }
