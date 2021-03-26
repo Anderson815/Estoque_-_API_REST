@@ -35,7 +35,7 @@ public class SwaggerConfig {
                 .description("com essa api você poderá realizar operações básicas de um estoque")
                 .version("1.0")
                 .license("MIT License")
-                .licenseUrl("https://github.com/Anderson815/Estoque_-_API_REST/blob/master/LICENSE")
+                .licenseUrl("https://github.com/Anderson815/Estoque_-_API_REST/blob/ffd7fb048db59421a60fa4d07eb5e05a374ae5c5/LICENSE.md")
                 .contact(contato)
                 .build();
     }
