@@ -11,7 +11,7 @@
   <a href="#Licenca">Licença</a>
 </p>
 
-<h2 id="Sobre">Sobre</h2>
+<h2 id="Sobre">:computer: Sobre o projeto</h2>
 <p>
   📦 Estoque API REST: Um projeto backend com o propósito de organizar e controlar os produtos de um mercado a fim de facilitar o trabalho   dos colaboradores do estabelecimento.
 </p>
