@@ -35,3 +35,13 @@
 <h2 id="Executar">🚀 Como executar o projeto</h2>
 <p>Você pode executar e testar a aplicação acessando o swagger do meu projeto no meu heroku clicando <a href="https://estoqueapirest.herokuapp.com/swagger-ui.html#/produto45controller">aqui</a></p>
 <p>Caso você queira usar o Postman para testar o projeto basta usar a url: https://estoqueapirest.herokuapp.com</p>
+
+<h2 id="Tecnologias">🛠 Tecnologias</h2>
+
+<a href="https://www.java.com/pt-BR/"><img src="Midias_Readme/ferramentas/Java.png" alt="Java" title="Java"></a>
+<a href="https://start.spring.io/"><img src="Midias_Readme/ferramentas/Spring Boot.png" alt="Spring" title="Spring"></a>
+<a href=""><img src="" alt="" title=""></a>
+<a href=""><img src="" alt="" title=""></a>
+<a href=""><img src="" alt="" title=""></a>
+<a href=""><img src="" alt="" title=""></a>
+<a href=""><img src="" alt="" title=""></a>
