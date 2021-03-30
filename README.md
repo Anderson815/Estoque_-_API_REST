@@ -19,3 +19,15 @@
 <p>
   Esse projeto foi desenvolvido principalmente para que o Autor pudesse praticar as tecnologias de backend e assim explorar cada vez mais esse mundo da programação.
 </p>
+
+<h2 id="Funcionalidades">⚙️ Funcionalidades</h2>
+
+  - [x] Cadastrar produto
+  - [x] Consultar produto pelo ID
+  - [x] Consultar produtos de uma marca
+  - [x] Consultar todos os produtos do estoque
+  - [x] Alterar produto
+  - [x] Deletar produto
+
+<p>Endpoints para as funcionalidades: </p>
+<img src="Midias_Readme/EndPoints.png">
