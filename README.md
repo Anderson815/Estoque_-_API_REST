@@ -31,3 +31,7 @@
 
 <p>Endpoints para as funcionalidades: </p>
 <img src="Midias_Readme/EndPoints.png">
+
+<h2 id="Executar">🚀 Como executar o projeto</h2>
+<p>Você pode executar e testar a aplicação acessando o swagger do meu projeto no meu heroku clicando <a href="https://estoqueapirest.herokuapp.com/swagger-ui.html#/produto45controller">aqui</a></p>
+<p>Caso você queira usar o Postman para testar o projeto basta usar a url: https://estoqueapirest.herokuapp.com</p>
