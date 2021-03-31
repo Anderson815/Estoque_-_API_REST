@@ -51,3 +51,12 @@
 <a href="https://www.postman.com/"><img src="Midias_Readme/ferramentas/Postman.png" alt="Postman" title="Postman"></a>
 <a href="https://dashboard.heroku.com/"><img src="Midias_Readme/ferramentas/Heroku.png" alt="Heroku" title="Heroku"></a>
 
+
+<h2 id="Autor">🦸 Autor</h2>
+
+<img src="Midias_Readme/Anderson.png" alt="Foto do Anderson">
+<p>
+Anderson Correia é um entusiasta e apaixonados por programação, focados em resolver problemas através de códigos.
+</p>
+<p>Esse projeto foi feito com muito ❤️ e carinho pelo Anderson 👋🏽 <a href="https://www.linkedin.com/in/anderson-correia/">Entre em contato!</a></p>
+
