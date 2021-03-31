@@ -60,3 +60,6 @@ Anderson Correia é um entusiasta e apaixonados por programação, focado em res
 </p>
 <p>Esse projeto foi feito com muito ❤️ e carinho pelo Anderson 👋🏽 <a href="https://www.linkedin.com/in/anderson-correia/">Entre em contato!</a></p>
 
+<h2 id="Licenca">📝 Licença</h2>
+
+<p>Este projeto esta sobe a licença <a href="https://github.com/Anderson815/Estoque_-_API_REST/blob/7b21c0c22cc7e7fa610063db27530108c39da6da/LICENSE.md">MIT</a>.</p>
