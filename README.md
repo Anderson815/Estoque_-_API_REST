@@ -56,7 +56,7 @@
 
 <img src="Midias_Readme/Anderson.png" alt="Foto do Anderson">
 <p>
-Anderson Correia é um entusiasta e apaixonados por programação, focados em resolver problemas através de códigos.
+Anderson Correia é um entusiasta e apaixonados por programação, focado em resolver problemas através de códigos.
 </p>
 <p>Esse projeto foi feito com muito ❤️ e carinho pelo Anderson 👋🏽 <a href="https://www.linkedin.com/in/anderson-correia/">Entre em contato!</a></p>
 
