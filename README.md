@@ -62,4 +62,4 @@ Anderson Correia é um entusiasta e apaixonados por programação, focado em res
 
 <h2 id="Licenca">📝 Licença</h2>
 
-<p>Este projeto esta sobe a licença <a href="https://github.com/Anderson815/Estoque_-_API_REST/blob/7b21c0c22cc7e7fa610063db27530108c39da6da/LICENSE.md">MIT</a>.</p>
+<p>Este projeto esta sobe a licença <a href="https://github.com/Anderson815/Farmacia_-_API_REST/blob/7c0a6cf8704e5d7cfe2e7d0d982756820816893a/LICENSE">MIT</a>.</p>
